@@ -9,7 +9,13 @@ public interface EmployeeService {
 
     Employee remove(String firstname, String lastname);
 
+    Employee add(String firstName, String lastName, int salary, int departmentId);
+
+    Employee remove(String firstName, String lastName, int salary, int departmentId);
+
     Employee find(String firstname, String lastname);
+
+    Employee find(String firstName, String lastName, int salary, int departmentId);
 
     Collection<Employee> findAll();
 }

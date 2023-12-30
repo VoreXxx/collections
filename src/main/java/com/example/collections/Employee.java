@@ -5,11 +5,15 @@ import java.util.Objects;
 public class Employee {
     private final String firstName;
     private final String lastName;
+    private final int salary;
+    private final int departmentId;
 
     // Constructor
-    public Employee(String surname, String name) {
+    public Employee(String surname, String name, int salary, int departmentId) {
         this.firstName = surname;
         this.lastName = name;
+        this.salary = salary;
+        this.departmentId = departmentId;
     }
 
     // Getter's
@@ -21,8 +25,17 @@ public class Employee {
         return lastName;
     }
 
+    public int getSalary() {
+        return salary;
+    }
+
+    public int getDepartmentId() {
+        return departmentId;
+    }
+
     public String getFullName() {
         return firstName + " " + lastName;
+
     }
 
     @Override
