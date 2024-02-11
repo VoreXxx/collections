@@ -8,4 +8,5 @@ public class InvalidNameException extends RuntimeException{
     public InvalidNameException(String name) {
         super("Invalid name: " + name);
     }
+
 }
