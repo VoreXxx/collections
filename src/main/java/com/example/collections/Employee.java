@@ -9,9 +9,9 @@ public class Employee {
     private final int departmentId;
 
     // Constructor
-    public Employee(String surname, String name, int salary, int departmentId) {
-        this.firstName = surname;
-        this.lastName = name;
+    public Employee(String  firstName, String lastName, int salary, int departmentId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.salary = salary;
         this.departmentId = departmentId;
     }

@@ -9,4 +9,7 @@ public class InvalidNameException extends RuntimeException{
         super("Invalid name: " + name);
     }
 
+    public String getName(String name) {
+        return name;
+    }
 }

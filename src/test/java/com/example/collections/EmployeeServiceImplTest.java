@@ -2,6 +2,7 @@ package com.example.collections;
 
 import com.example.collections.exception.EmployeeAlreadyAddedException;
 import com.example.collections.exception.EmployeeNotFoundException;
+import com.example.collections.exception.InvalidNameException;
 import com.example.collections.service.EmployeeService;
 import com.example.collections.service.EmployeeServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,7 @@ import java.util.List;
 import static com.example.collections.EmployeeTestConstant.*;
 import static java.util.Collections.emptyList;
 import static org.junit.jupiter.api.Assertions.*;
+
 
 public class EmployeeServiceImplTest {
 
@@ -40,7 +42,7 @@ public class EmployeeServiceImplTest {
 
     @Test
     public void shouldFindEmployeeWhenTheyExist() {
-        Employee existed = out.add(FIRST_NAME, LAST_NAME);
+        Employee existed = out.add(FIRST_NAME, LAST_NAME, SALARY, DEPARTMENT_ID);
         Employee actual = out.find(FIRST_NAME, LAST_NAME);
         assertEquals(existed, actual);
     }
@@ -71,7 +73,7 @@ public class EmployeeServiceImplTest {
         assertTrue(out.findAll().isEmpty());
 
         assertThrows(EmployeeNotFoundException.class,
-                () -> out.remove(FIRST_NAME, LAST_NAME));
+                () -> out.remove(FIRST_NAME, LAST_NAME, SALARY, DEPARTMENT_ID));
     }
 
     @Test
@@ -88,5 +90,12 @@ public class EmployeeServiceImplTest {
         Collection<Employee> actual = out.findAll();
 
         assertIterableEquals(expected, actual);
+    }
+    @Test
+    public void testValidateNames() {
+        assertDoesNotThrow(() -> out.validateNames(FIRST_NAME, LAST_NAME));
+        InvalidNameException exception = assertThrows(InvalidNameException.class,
+                () -> out.validateNames(INVALID_LAST_NAME));
+        assertEquals(INVALID_LAST_NAME, exception.getName(INVALID_LAST_NAME));
     }
 }

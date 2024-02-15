@@ -23,16 +23,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee add(String firstname, String lastname) {
-        return null;
-    }
-
-    @Override
-    public Employee remove(String firstname, String lastname) {
-        return null;
-    }
-
-    @Override
     public Employee add(String firstName, String lastName, int salary, int departmentId) {
         validateNames(firstName, lastName);
         Employee employee = new Employee(
@@ -41,10 +31,10 @@ public class EmployeeServiceImpl implements EmployeeService {
                 salary,
                 departmentId
         );
-        if (employees.containsKey(employee.getFullName())) {
+        if (employees.containsKey(getKey(firstName, lastName))) {
             throw new EmployeeAlreadyAddedException();
         }
-        employees.put(employee.getFullName(), employee);
+        employees.put(getKey(firstName, lastName), employee);
         return employee;
     }
 
@@ -52,23 +42,19 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee remove(String firstName, String lastName, int salary, int departmentId) {
         validateNames(firstName, lastName);
         Employee employee = new Employee(firstName, lastName, salary, departmentId);
-        if (employees.containsKey(employee.getFullName())) {
-            return employees.remove(employee.getFullName());
+        if (employees.containsKey(getKey(firstName, lastName))) {
+            return employees.remove(getKey(firstName, lastName));
         }
         throw new EmployeeNotFoundException();
     }
 
-    @Override
-    public Employee find(String firstName, String lastName) {
-        return null;
-    }
+
 
     @Override
-    public Employee find(String firstName, String lastName, int salary, int departmentId) {
+    public Employee find(String firstName, String lastName) {
         validateNames(firstName, lastName);
-        Employee employee = new Employee(firstName, lastName, salary, departmentId);
-        if (employees.containsKey(employee.getFullName())) {
-            return employees.get(employee.getFullName());
+        if (employees.containsKey(getKey(firstName, lastName))) {
+            return employees.get(getKey(firstName, lastName));
         }
         throw new EmployeeNotFoundException();
     }
@@ -78,7 +64,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         return Collections.unmodifiableCollection(employees.values());
     }
 
-    private void validateNames(@NotNull String... names) {
+    @Override
+    public void validateNames(@NotNull String @NotNull ... names) {
         for (String name : names) {
             if (!isAlpha(name)) {
                 throw new InvalidNameException(name);

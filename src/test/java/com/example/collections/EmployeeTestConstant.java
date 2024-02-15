@@ -11,6 +11,7 @@ public class EmployeeTestConstant {
     public static final String FIRST_NAME2 = "Piter";
     public static final String LAST_NAME = "Gwen";
     public static final String LAST_NAME2 = "Elis";
+    public static final String INVALID_LAST_NAME = "Elis123";
     public static final int SALARY = 500;
     public static final int MIN_SALARY = 100;
     public static final int DEPARTMENT_ID = 1;
